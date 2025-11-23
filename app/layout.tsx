@@ -3,10 +3,10 @@ import LayoutClient from './layout-client';
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Acme Dashboard',
-    default: 'Acme Dashboard',
+    template: '%s | Web Developer Portfolio',
+    default: 'Web Developer Portfolio',
   },
-  description: 'The official Next.js Learn Dashboard built with App Router.',
+  description: 'An Interactive 3D Web Experience built to showcase advanced web development skills.',
   metadataBase: new URL('https://next-learn-dashboard.vercel.sh'),
 };
 

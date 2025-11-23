@@ -471,8 +471,8 @@ const Page = () => {
           <Suspense fallback={null}>
             <directionalLight position={[1, 1, 1]} intensity={2} />
             <ambientLight intensity={0.5} />
-
-            <CameraLogger />
+            {/* Debug camera postion */}
+            {/* <CameraLogger /> */}
             <CameraCapture onCameraCapture={handleCameraCapture} />
 
             <CloudStationContent {...cloudStationProps} />

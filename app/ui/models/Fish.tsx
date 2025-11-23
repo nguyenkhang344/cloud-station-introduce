@@ -438,10 +438,10 @@ const Fish: React.FC<FishProps> = ({
       </group>
 
       {/* Debug line showing swimming path */}
-      <line ref={lineRef as any}>
+      {/* <line ref={lineRef as any}>
         <bufferGeometry ref={geometryRef} />
         <lineBasicMaterial color={0xff0000} linewidth={2} />
-      </line>
+      </line> */}
     </>
   );
 };

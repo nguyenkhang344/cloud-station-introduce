@@ -78,8 +78,8 @@ const BackgroundMusic = ({ isLoading, musicPath = '/sounds/musics/piano 02 ill l
         // Set volume to 0 before playing to prevent loud initial sound
         audioRef.current.volume = 0;
 
-        audioRef.current.play().catch((error) => {
-          console.log('Audio autoplay prevented:', error);
+        audioRef.current.play().catch(() => {
+          // Ignore autoplay prevented errors
         });
 
         // Start fade in animation after a short delay
@@ -111,8 +111,8 @@ const BackgroundMusic = ({ isLoading, musicPath = '/sounds/musics/piano 02 ill l
 
     if (isEnabled && hasPlayedRef.current) {
       // Resume music if it was playing before
-      audioRef.current.play().catch((error) => {
-        console.log('Audio play prevented:', error);
+      audioRef.current.play().catch(() => {
+        // Ignore autoplay prevented errors
       });
     } else {
       // Pause music when sound is disabled

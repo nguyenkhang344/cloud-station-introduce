@@ -100,8 +100,8 @@ const RouteAwareMusic = () => {
         // Play new music if enabled and user has interacted
         if (isEnabled && hasPlayedRef.current) {
           audioRef.current.volume = 0;
-          audioRef.current.play().catch((error) => {
-            console.log('Audio play prevented:', error);
+          audioRef.current.play().catch(() => {
+            // Ignore autoplay prevented errors
           });
           fadeIn(5000);
         }
@@ -124,8 +124,8 @@ const RouteAwareMusic = () => {
         audioRef.current.volume = 0;
         audioRef.current.src = musicPath;
 
-        audioRef.current.play().catch((error) => {
-          console.log('Audio autoplay prevented:', error);
+        audioRef.current.play().catch(() => {
+          // Ignore autoplay prevented errors
         });
 
         // Start fade in animation after a short delay
@@ -157,8 +157,8 @@ const RouteAwareMusic = () => {
 
     if (isEnabled && hasPlayedRef.current) {
       // Resume music if it was playing before
-      audioRef.current.play().catch((error) => {
-        console.log('Audio play prevented:', error);
+      audioRef.current.play().catch(() => {
+        // Ignore autoplay prevented errors
       });
     } else {
       // Pause music when sound is disabled
