@@ -1,0 +1,16 @@
+{
+  "hills": {
+    "hill1": {
+      "title": "Hill 1",
+      "description": "This is the first hill showcasing foundational concepts and core technologies. Explore the basics of web development and architecture."
+    },
+    "hill2": {
+      "title": "Hill 2",
+      "description": "The second hill features advanced techniques and patterns. Discover optimization strategies and best practices in modern development."
+    },
+    "hill3": {
+      "title": "Hill 3",
+      "description": "The final hill presents cutting-edge technologies and innovations. Experience the latest advancements in web development and 3D graphics."
+    }
+  }
+}

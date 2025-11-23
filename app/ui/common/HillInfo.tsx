@@ -1,50 +1,36 @@
 import React, { useState, useEffect } from 'react';
+import hillInfoData from '@/app/lib/data/hillInfoContent.json';
+import { getHillInfoContent, ContentCard } from '@/app/lib/hooks/useInfoContent';
 
 interface InfoCardProps {
-  title: string;
-  description: string;
+  cardData: ContentCard;
   isExiting?: boolean;
 }
 
-const HillInfoCard = ({ title, description, isExiting = false }: InfoCardProps) => (
+const HillInfoCard = ({ cardData, isExiting = false }: InfoCardProps) => (
   <div className="card w-96 bg-transparent backdrop-blur-sm">
     <div className="card-body">
       <h2
         className={`card-title text-white ${isExiting ? 'animate-fade-up' : 'animate-fade-down'}`}
         style={{ animationDelay: isExiting ? '0.2s' : '0s', opacity: 0 }}
       >
-        {title}
+        {cardData.title}
       </h2>
       <p
         className={`text-white ${isExiting ? 'animate-fade-up' : 'animate-fade-down'}`}
         style={{ animationDelay: isExiting ? '0s' : '0.2s', opacity: 0 }}
       >
-        {description}
+        {cardData.description}
       </p>
     </div>
   </div>
 );
 
 const getCardContent = (hillKey: string, isExiting: boolean) => {
-  const contentMap: { [key: string]: { title: string; description: string } } = {
-    hill1: {
-      title: 'Hill 1',
-      description: 'This is the first hill showcasing foundational concepts and core technologies. Explore the basics of web development and architecture.',
-    },
-    hill2: {
-      title: 'Hill 2',
-      description: 'The second hill features advanced techniques and patterns. Discover optimization strategies and best practices in modern development.',
-    },
-    hill3: {
-      title: 'Hill 3',
-      description: 'The final hill presents cutting-edge technologies and innovations. Experience the latest advancements in web development and 3D graphics.',
-    },
-  };
+  const cardData = getHillInfoContent(hillInfoData, hillKey);
+  if (!cardData) return null;
 
-  const content = contentMap[hillKey];
-  if (!content) return null;
-
-  return <HillInfoCard title={content.title} description={content.description} isExiting={isExiting} />;
+  return <HillInfoCard cardData={cardData} isExiting={isExiting} />;
 };
 
 interface HillInfoProps {

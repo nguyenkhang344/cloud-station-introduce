@@ -1,0 +1,29 @@
+{
+  "cards": {
+    "1": {
+      "title": "Get in Touch 📧",
+      "paragraphs": [
+        "Interested in collaborating or have a great project idea? Feel free to reach out. I'm always open to discussing new opportunities and learning from fellow developers and innovators in the tech community."
+      ],
+      "buttonText": "Contact Me",
+      "buttonAction": "contact"
+    },
+    "2": {
+      "title": "My Other Projects 🚀",
+      "paragraphs": [
+        "I've worked on diverse projects ranging from real-time trading platforms to interactive data visualization tools. Each project represents a learning opportunity where I explore new technologies and push the boundaries of what's possible with modern web development and backend systems."
+      ],
+      "buttonText": "View Projects",
+      "buttonAction": "projects"
+    },
+    "3": {
+      "title": "Hi, I'm Khang 👋",
+      "paragraphs": [
+        "I'm a software engineer working in fintech, building both frontend apps with React and backend systems with Java. I enjoy the mix between design and logic — crafting something that not only works, but also feels right.",
+        "Lately, I've been diving into machine learning, curious about how code can understand and adapt. I'm the kind of person who loves learning how things really work — from trading models to tiny game worlds like this one."
+      ],
+      "buttonText": "My Experiences",
+      "buttonAction": "experiences"
+    }
+  }
+}
