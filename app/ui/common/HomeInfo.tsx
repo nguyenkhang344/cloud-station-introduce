@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import homeInfoData from '@/app/lib/data/homeInfoContent.json';
 import { getHomeInfoContent, ContentCard } from '@/app/lib/hooks/useInfoContent';
 
-const HomeCard = ({ cardData }: { cardData: ContentCard }) => {
+const HomeCard = ({ cardData, onContactClick }: { cardData: ContentCard; onContactClick?: () => void }) => {
   const router = useRouter();
 
   const handleButtonClick = () => {
@@ -16,6 +16,8 @@ const HomeCard = ({ cardData }: { cardData: ContentCard }) => {
       }, 1000);
     } else if (cardData.buttonAction === 'projects') {
       window.open('https://github.com/nguyenkhang344/encox-predict', '_blank');
+    } else if (cardData.buttonAction === 'contact') {
+      onContactClick?.();
     }
   };
 
@@ -44,9 +46,9 @@ const HomeCard = ({ cardData }: { cardData: ContentCard }) => {
   );
 };
 
-const renderContent = (stageNumber: number) => {
+const renderContent = (stageNumber: number, onContactClick?: () => void) => {
   const cardData = getHomeInfoContent(homeInfoData, stageNumber);
-  return cardData ? <HomeCard cardData={cardData} /> : null;
+  return cardData ? <HomeCard cardData={cardData} onContactClick={onContactClick} /> : null;
 };
 
 interface HomeInfoProps {
@@ -72,7 +74,11 @@ const HomeInfo = ({ currentStage }: HomeInfoProps) => {
     }
   }, [currentStage, displayStage]);
 
-  const content = renderContent(displayStage);
+  const handleContactClick = () => {
+    (window as any).__showCloud?.(true);
+  };
+
+  const content = renderContent(displayStage, handleContactClick);
 
   return (
     <>

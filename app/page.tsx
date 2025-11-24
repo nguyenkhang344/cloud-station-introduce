@@ -4,6 +4,7 @@ import { Suspense, useState, useEffect, useRef } from 'react';
 import Kitchen from './ui/models/Kitchen';
 import Sky from './ui/models/Sky';
 import Plane from './ui/models/Plane';
+import { FloatingCloud } from './ui/models/FloatingCloud';
 import HomeInfo from './ui/common/HomeInfo';
 import InstructionOverlay from './ui/common/InstructionOverlay';
 import LoadingScreen from './ui/common/LoadingScreen';
@@ -17,6 +18,7 @@ const Page = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [rotationDirection, setRotationDirection] = useState(-1); // 1 for clockwise, -1 for counter-clockwise
   const [showBlurOverlay, setShowBlurOverlay] = useState(false);
+  const [showCloud, setShowCloud] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -40,11 +42,13 @@ const Page = () => {
     };
   }, []);
 
-  // Expose blur overlay trigger to window for HomeInfo
+  // Expose blur overlay and cloud trigger to window for HomeInfo
   useEffect(() => {
     (window as any).__showBlurOverlay = setShowBlurOverlay;
+    (window as any).__showCloud = setShowCloud;
     return () => {
       delete (window as any).__showBlurOverlay;
+      delete (window as any).__showCloud;
     };
   }, []);
 
@@ -118,6 +122,7 @@ const Page = () => {
               rotation={[0, 20, 0]}
               rotationDirection={rotationDirection}
             />
+            <FloatingCloud shouldAnimate={showCloud} />
             <Kitchen
               position={screenPosition}
               scale={screenScale}
