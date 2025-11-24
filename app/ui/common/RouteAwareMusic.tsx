@@ -21,7 +21,7 @@ const RouteAwareMusic = () => {
 
     const audio = audioRef.current;
     const startTime = Date.now();
-    const maxVolume = 0.5; // 50%
+    const maxVolume = 0.3; // 30%
 
     audio.volume = 0;
 
