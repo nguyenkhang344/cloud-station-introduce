@@ -8,12 +8,34 @@ import * as THREE from 'three';
 interface FloatingCloudProps {
   shouldAnimate: boolean;
   onAnimationComplete?: () => void;
+  shouldExit?: boolean;
 }
 
-export function FloatingCloud({ shouldAnimate, onAnimationComplete }: FloatingCloudProps) {
+export function FloatingCloud({ shouldAnimate, onAnimationComplete, shouldExit }: FloatingCloudProps) {
   const { scene } = useGLTF('/for-public-page/cloud.glb');
   const groupRef = useRef<THREE.Group>(null);
   const hasAnimated = useRef(false);
+  const hasExited = useRef(false);
+
+  useEffect(() => {
+    if (shouldExit && !hasExited.current && groupRef.current) {
+      hasExited.current = true;
+      // Kill all running animations
+      gsap.killTweensOf(groupRef.current.position);
+
+      // Animate cloud flying up and out of screen
+      gsap.to(groupRef.current.position, {
+        y: 8,
+        duration: 1.5,
+        ease: 'power2.in',
+        onComplete: () => {
+          // Reset state for next animation
+          hasAnimated.current = false;
+          hasExited.current = false;
+        },
+      });
+    }
+  }, [shouldExit]);
 
   useEffect(() => {
     if (shouldAnimate && !hasAnimated.current && groupRef.current) {
@@ -26,7 +48,7 @@ export function FloatingCloud({ shouldAnimate, onAnimationComplete }: FloatingCl
 
       // Animate cloud floating up from bottom to center
       gsap.to(groupRef.current.position, {
-        y: -2,
+        y: -1.8,
         duration: 2,
         ease: 'power2.inOut',
         onComplete: () => {
@@ -38,7 +60,7 @@ export function FloatingCloud({ shouldAnimate, onAnimationComplete }: FloatingCl
 
       // Add subtle floating animation after it reaches center
       gsap.to(groupRef.current.position, {
-        y: -2.04,
+        y: -1.84,
         duration: 2,
         delay: 2,
         repeat: -1,

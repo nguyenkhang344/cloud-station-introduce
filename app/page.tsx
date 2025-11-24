@@ -20,6 +20,7 @@ const Page = () => {
   const [showBlurOverlay, setShowBlurOverlay] = useState(false);
   const [showCloud, setShowCloud] = useState(false);
   const [cloudAnimationComplete, setCloudAnimationComplete] = useState(false);
+  const [shouldExitCloud, setShouldExitCloud] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -47,6 +48,13 @@ const Page = () => {
   useEffect(() => {
     (window as any).__showBlurOverlay = setShowBlurOverlay;
     (window as any).__showCloud = setShowCloud;
+    (window as any).__exitCloud = () => {
+      setShouldExitCloud(true);
+      setTimeout(() => {
+        setShowCloud(false);
+        setShouldExitCloud(false);
+      }, 1500);
+    };
     (window as any).__setCloudAnimationComplete = (isComplete: boolean) => {
       setCloudAnimationComplete(isComplete);
       if (isComplete) {
@@ -57,6 +65,7 @@ const Page = () => {
     return () => {
       delete (window as any).__showBlurOverlay;
       delete (window as any).__showCloud;
+      delete (window as any).__exitCloud;
       delete (window as any).__setCloudAnimationComplete;
     };
   }, []);
@@ -131,7 +140,7 @@ const Page = () => {
               rotation={[0, 20, 0]}
               rotationDirection={rotationDirection}
             />
-            <FloatingCloud shouldAnimate={showCloud} />
+            <FloatingCloud shouldAnimate={showCloud} shouldExit={shouldExitCloud} />
             <Kitchen
               position={screenPosition}
               scale={screenScale}

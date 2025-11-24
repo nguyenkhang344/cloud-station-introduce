@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 import homeInfoData from '@/app/lib/data/homeInfoContent.json';
 import { getHomeInfoContent, ContentCard } from '@/app/lib/hooks/useInfoContent';
+import ExitZoomButton from './ExitZoomButton';
 
 const HomeCard = ({ cardData, onContactClick }: { cardData: ContentCard; onContactClick?: () => void }) => {
   const router = useRouter();
@@ -55,8 +56,8 @@ interface HomeInfoProps {
   currentStage: number;
 }
 
-const EmailCard = () => (
-  <div className="flex flex-col items-center gap-3">
+const EmailCard = ({ onExit }: { onExit: () => void }) => (
+  <div className="flex flex-col items-center gap-2">
     <a
       href="https://linkedin.com/in/nguyenvuongkhang"
       target="_blank"
@@ -68,6 +69,7 @@ const EmailCard = () => (
     <div className="text-primary font-semibold text-lg">
       nguyenkhang344@gmail.com
     </div>
+    <ExitZoomButton isVisible={true} onClick={onExit} className="!text-black hover:!text-black" />
   </div>
 );
 
@@ -96,6 +98,13 @@ const HomeInfo = ({ currentStage }: HomeInfoProps) => {
     setIsCloudAnimating(true);
     setShowCloudEmail(false);
     (window as any).__showCloud?.(true);
+  };
+
+  const handleExitCloud = () => {
+    setShowCloudEmail(false);
+    setIsCloudAnimating(false);
+    // Trigger cloud exit animation
+    (window as any).__exitCloud?.();
   };
 
   // Listen for cloud animation completion (2 second delay for cloud animation)
@@ -133,7 +142,7 @@ const HomeInfo = ({ currentStage }: HomeInfoProps) => {
 
       {/* Email card shown when cloud animation completes */}
       <div
-        className={`fixed top-1/3 left-1/2 transform -translate-x-1/2 z-10 transition-all duration-500 ease-out ${
+        className={`fixed top-1/4 left-1/2 transform -translate-x-1/2 z-10 transition-all duration-500 ease-out ${
           showCloudEmail
             ? 'opacity-100'
             : 'opacity-0 pointer-events-none'
@@ -153,7 +162,7 @@ const HomeInfo = ({ currentStage }: HomeInfoProps) => {
             }
           }
         `}</style>
-        <EmailCard />
+        <EmailCard onExit={handleExitCloud} />
       </div>
     </>
   );
