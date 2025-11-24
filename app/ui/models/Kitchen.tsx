@@ -6,7 +6,7 @@ Source: https://sketchfab.com/3d-models/cozy-day-38e5573d832d44279e601687c509f1f
 Title: Cozy Day
 */
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 import { useFrame, useThree } from '@react-three/fiber';
@@ -22,6 +22,7 @@ interface KitchenProps {
   onUserInteraction?: () => void;
   onLoad?: () => void;
   setRotationDirection?: (direction: number) => void;
+  isCloudAnimating?: boolean;
 }
 
 const Kitchen = (props: KitchenProps) => {
@@ -35,12 +36,13 @@ const Kitchen = (props: KitchenProps) => {
   const dampingFactor = 0.55;
   const isKeyboardActive = useRef(false);
   const isPointerDown = useRef(false);
+  const isCloudAnimatingRef = useRef(false);
 
   const handlePointerDown = (e: any) => {
     e.stopPropagation();
     e.preventDefault();
-    // Only activate pointer control if keyboard is not active
-    if (!isKeyboardActive.current) {
+    // Only activate pointer control if keyboard is not active and cloud is not animating
+    if (!isKeyboardActive.current && !isCloudAnimatingRef.current) {
       isPointerDown.current = true;
       props.setRotating(true);
       props.onUserInteraction?.();
@@ -59,8 +61,8 @@ const Kitchen = (props: KitchenProps) => {
   const handlePointerMove = (e: any) => {
     e.stopPropagation();
     e.preventDefault();
-    // Only process pointer move if pointer button is actually down and keyboard is not active
-    if (isPointerDown.current && !isKeyboardActive.current) {
+    // Only process pointer move if pointer button is actually down, keyboard is not active, and cloud is not animating
+    if (isPointerDown.current && !isKeyboardActive.current && !isCloudAnimatingRef.current) {
       const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
       const deltaX = (clientX - lastX.current) / viewport.width;
       if (kitchenRef.current) {
@@ -83,6 +85,10 @@ const Kitchen = (props: KitchenProps) => {
 
   const handleKeyDown = (e: KeyboardEvent) => {
     if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+      // Skip keyboard rotation if cloud is animating
+      if (isCloudAnimatingRef.current) {
+        return;
+      }
       if (keyPressed.current !== e.key) {
         keyPressed.current = e.key;
         isKeyboardActive.current = true;
@@ -158,6 +164,11 @@ const Kitchen = (props: KitchenProps) => {
     return 1; // Default fallback
   };
 
+  // Sync cloud animating state to ref for use in useFrame
+  useEffect(() => {
+    isCloudAnimatingRef.current = props.isCloudAnimating ?? false;
+  }, [props.isCloudAnimating]);
+
   // Notify when loaded
   useEffect(() => {
     if (!hasNotifiedLoad.current && nodes && materials) {
@@ -167,6 +178,12 @@ const Kitchen = (props: KitchenProps) => {
   }, [nodes, materials, props]);
 
   useFrame(() => {
+    // Reset rotation speed if cloud is animating
+    if (isCloudAnimatingRef.current) {
+      rotationSpeed.current = 0;
+      return;
+    }
+
     // Handle normal rotation with momentum
     if (!props.isRotating) {
       rotationSpeed.current *= dampingFactor;

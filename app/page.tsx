@@ -21,6 +21,7 @@ const Page = () => {
   const [showCloud, setShowCloud] = useState(false);
   const [cloudAnimationComplete, setCloudAnimationComplete] = useState(false);
   const [shouldExitCloud, setShouldExitCloud] = useState(false);
+  const [isCloudAnimating, setIsCloudAnimating] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -47,12 +48,16 @@ const Page = () => {
   // Expose blur overlay and cloud trigger to window for HomeInfo
   useEffect(() => {
     (window as any).__showBlurOverlay = setShowBlurOverlay;
-    (window as any).__showCloud = setShowCloud;
+    (window as any).__showCloud = (shouldShow: boolean) => {
+      setShowCloud(shouldShow);
+      setIsCloudAnimating(shouldShow);
+    };
     (window as any).__exitCloud = () => {
       setShouldExitCloud(true);
       setTimeout(() => {
         setShowCloud(false);
         setShouldExitCloud(false);
+        setIsCloudAnimating(false);
       }, 1500);
     };
     (window as any).__setCloudAnimationComplete = (isComplete: boolean) => {
@@ -151,6 +156,7 @@ const Page = () => {
               onUserInteraction={() => setHasUserInteracted(true)}
               onLoad={handleLoadingComplete}
               setRotationDirection={setRotationDirection}
+              isCloudAnimating={isCloudAnimating}
             />
           </Suspense>
         </Canvas>

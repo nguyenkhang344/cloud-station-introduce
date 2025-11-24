@@ -102,9 +102,13 @@ const HomeInfo = ({ currentStage }: HomeInfoProps) => {
 
   const handleExitCloud = () => {
     setShowCloudEmail(false);
-    setIsCloudAnimating(false);
+    // Keep isCloudAnimating true during exit animation
     // Trigger cloud exit animation
     (window as any).__exitCloud?.();
+    // Reset after exit animation completes (1.5 seconds)
+    setTimeout(() => {
+      setIsCloudAnimating(false);
+    }, 1500);
   };
 
   // Listen for cloud animation completion (2 second delay for cloud animation)
