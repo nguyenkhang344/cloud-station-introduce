@@ -14,6 +14,8 @@ const HomeCard = ({ cardData }: { cardData: ContentCard }) => {
       setTimeout(() => {
         router.push('/cloud-station');
       }, 1000);
+    } else if (cardData.buttonAction === 'projects') {
+      window.open('https://github.com/nguyenkhang344/encox-predict', '_blank');
     }
   };
 

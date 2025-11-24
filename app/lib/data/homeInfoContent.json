@@ -3,15 +3,17 @@
     "1": {
       "title": "Get in Touch 📧",
       "paragraphs": [
-        "Interested in collaborating or have a great project idea? Feel free to reach out. I'm always open to discussing new opportunities and learning from fellow developers and innovators in the tech community."
+        "Feel free to reach out anytime — whether it's a project idea, a question, or just a hello.",
+        "These days I'm living in Da Nang, enjoying the sea breeze while building things I love.",
+        "Always happy to connect with new people."
       ],
       "buttonText": "Contact Me",
       "buttonAction": "contact"
     },
     "2": {
-      "title": "My Other Projects 🚀",
+      "title": "My Project: Encox Predict 🚀",
       "paragraphs": [
-        "I've worked on diverse projects ranging from real-time trading platforms to interactive data visualization tools. Each project represents a learning opportunity where I explore new technologies and push the boundaries of what's possible with modern web development and backend systems."
+        "I built this forecasting model for time-series data using Python. Technically, I combined two powerful architectures: leveraging the Transformer to 'encode' the context and meaning within the data, and then using XGBoost to execute the final prediction decisions. This was a highly rewarding experience, helping me deepen my understanding of how Machine Learning can find patterns within complex datasets."
       ],
       "buttonText": "View Projects",
       "buttonAction": "projects"

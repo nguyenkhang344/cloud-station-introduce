@@ -8,16 +8,16 @@ interface InfoCardProps {
 }
 
 const HillInfoCard = ({ cardData, isExiting = false }: InfoCardProps) => (
-  <div className="card w-96 bg-transparent backdrop-blur-sm">
+  <div className="card w-full sm:w-96 md:w-[500px] lg:w-[600px] bg-transparent backdrop-blur-sm max-w-[90vw]">
     <div className="card-body">
       <h2
-        className={`card-title text-white ${isExiting ? 'animate-fade-up' : 'animate-fade-down'}`}
+        className={`card-title text-white whitespace-pre-wrap ${isExiting ? 'animate-fade-up' : 'animate-fade-down'}`}
         style={{ animationDelay: isExiting ? '0.2s' : '0s', opacity: 0 }}
       >
         {cardData.title}
       </h2>
       <p
-        className={`text-white ${isExiting ? 'animate-fade-up' : 'animate-fade-down'}`}
+        className={`text-white whitespace-pre-wrap ${isExiting ? 'animate-fade-up' : 'animate-fade-down'}`}
         style={{ animationDelay: isExiting ? '0s' : '0.2s', opacity: 0 }}
       >
         {cardData.description}

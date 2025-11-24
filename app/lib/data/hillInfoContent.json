@@ -1,16 +1,16 @@
 {
   "hills": {
     "hill1": {
-      "title": "Hill 1",
-      "description": "This is the first hill showcasing foundational concepts and core technologies. Explore the basics of web development and architecture."
+      "title": "Hitachi Vantara\nSeptember 2019 → June 2021 ",
+      "description": "At Hitachi, I worked on the Enterprise CRM platform, where my main focus was integrating the system for electronic tax filing. This solution processed a high volume of daily tasks for nearly 20 retail locations. My work involved building APIs to automate the tax submissions and optimizing the batch process. We put a lot of effort into improving logging and system reliability to keep everything running smoothly and stable, even during peak business periods."
     },
     "hill2": {
-      "title": "Hill 2",
-      "description": "The second hill features advanced techniques and patterns. Discover optimization strategies and best practices in modern development."
+      "title": "GBST\n April 2023 → November 2024",
+      "description": "For nearly two years, I played a part in a large financial project that manages retirement funds and complex money processes. My main job was creating the essential APIs for things like checking records, handling withdrawals, and organizing company contributions. On the user-facing side, I built and tuned React screens to handle huge amounts of data—my personal challenge was making sure tables with over 20,000 rows always felt responsive and fast. I also worked closely with the QA and business teams to ensure everything we built was accurate, compliant, and maintained clean data."
     },
     "hill3": {
-      "title": "Hill 3",
-      "description": "The final hill presents cutting-edge technologies and innovations. Experience the latest advancements in web development and 3D graphics."
+      "title": "Freelance Project – Financial Trend Forecasting Dashboard\n June 2025 → September 2025",
+      "description": "I spent a few months on a freelance gig creating a Python dashboard to predict financial trends. This was a great hands-on project where I set up parts of the data cleaning and the XGBoost model training pipeline for short-term forecasts. I gained some valuable experience applying Machine Learning to time-series data and figuring out the best prediction settings to make the model useful in real-life situations."
     }
   }
 }
