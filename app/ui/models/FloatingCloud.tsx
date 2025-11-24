@@ -30,13 +30,15 @@ export function FloatingCloud({ shouldAnimate, onAnimationComplete }: FloatingCl
         duration: 2,
         ease: 'power2.inOut',
         onComplete: () => {
+          // Mark animation as complete
+          (window as any).__setCloudAnimationComplete?.(true);
           onAnimationComplete?.();
         },
       });
 
       // Add subtle floating animation after it reaches center
       gsap.to(groupRef.current.position, {
-        y: -2.1,
+        y: -2.04,
         duration: 2,
         delay: 2,
         repeat: -1,
@@ -64,7 +66,9 @@ export function FloatingCloud({ shouldAnimate, onAnimationComplete }: FloatingCl
     });
   }, [scene]);
 
-  if (!shouldAnimate) return null;
+  if (!shouldAnimate) {
+    return null;
+  }
 
   return (
     <group ref={groupRef} position={[0, -10, 0]} scale={[0.5, 0.5, 0.5]}>

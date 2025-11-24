@@ -55,9 +55,27 @@ interface HomeInfoProps {
   currentStage: number;
 }
 
+const EmailCard = () => (
+  <div className="flex flex-col items-center gap-3">
+    <a
+      href="https://linkedin.com/in/nguyenvuongkhang"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-primary font-semibold text-lg hover:underline transition-all cursor-pointer"
+    >
+      linkedin.com/in/nguyenvuongkhang
+    </a>
+    <div className="text-primary font-semibold text-lg">
+      nguyenkhang344@gmail.com
+    </div>
+  </div>
+);
+
 const HomeInfo = ({ currentStage }: HomeInfoProps) => {
   const [displayStage, setDisplayStage] = useState(currentStage);
   const [isVisible, setIsVisible] = useState(true);
+  const [showCloudEmail, setShowCloudEmail] = useState(false);
+  const [isCloudAnimating, setIsCloudAnimating] = useState(false);
 
   useEffect(() => {
     if (currentStage !== displayStage) {
@@ -75,8 +93,26 @@ const HomeInfo = ({ currentStage }: HomeInfoProps) => {
   }, [currentStage, displayStage]);
 
   const handleContactClick = () => {
+    setIsCloudAnimating(true);
+    setShowCloudEmail(false);
     (window as any).__showCloud?.(true);
   };
+
+  // Listen for cloud animation completion (2 second delay for cloud animation)
+  useEffect(() => {
+    (window as any).__homeInfoSetShowCloudEmail = (shouldShow: boolean) => {
+      if (shouldShow) {
+        // Show email card after cloud animation completes
+        setShowCloudEmail(true);
+      } else {
+        setShowCloudEmail(false);
+        setIsCloudAnimating(false);
+      }
+    };
+    return () => {
+      delete (window as any).__homeInfoSetShowCloudEmail;
+    };
+  }, []);
 
   const content = renderContent(displayStage, handleContactClick);
 
@@ -84,7 +120,7 @@ const HomeInfo = ({ currentStage }: HomeInfoProps) => {
     <>
       <div
         className={`fixed top-10 left-1/2 transform -translate-x-1/2 z-10 transition-all duration-300 ease-in-out ${
-          content && isVisible
+          !isCloudAnimating && !showCloudEmail && content && isVisible
             ? 'opacity-100 translate-y-0 scale-100'
             : 'opacity-0 -translate-y-4 scale-95 pointer-events-none'
           }`}
@@ -93,6 +129,31 @@ const HomeInfo = ({ currentStage }: HomeInfoProps) => {
         }}
       >
         {content}
+      </div>
+
+      {/* Email card shown when cloud animation completes */}
+      <div
+        className={`fixed top-1/3 left-1/2 transform -translate-x-1/2 z-10 transition-all duration-500 ease-out ${
+          showCloudEmail
+            ? 'opacity-100'
+            : 'opacity-0 pointer-events-none'
+          }`}
+        style={{
+          transitionProperty: 'opacity',
+          animation: showCloudEmail ? 'fadeIn 0.8s ease-out forwards' : 'none'
+        }}
+      >
+        <style>{`
+          @keyframes fadeIn {
+            from {
+              opacity: 0;
+            }
+            to {
+              opacity: 1;
+            }
+          }
+        `}</style>
+        <EmailCard />
       </div>
     </>
   );

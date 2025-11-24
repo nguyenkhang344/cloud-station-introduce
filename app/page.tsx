@@ -19,6 +19,7 @@ const Page = () => {
   const [rotationDirection, setRotationDirection] = useState(-1); // 1 for clockwise, -1 for counter-clockwise
   const [showBlurOverlay, setShowBlurOverlay] = useState(false);
   const [showCloud, setShowCloud] = useState(false);
+  const [cloudAnimationComplete, setCloudAnimationComplete] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -46,9 +47,17 @@ const Page = () => {
   useEffect(() => {
     (window as any).__showBlurOverlay = setShowBlurOverlay;
     (window as any).__showCloud = setShowCloud;
+    (window as any).__setCloudAnimationComplete = (isComplete: boolean) => {
+      setCloudAnimationComplete(isComplete);
+      if (isComplete) {
+        // Trigger email card display after cloud animation completes
+        (window as any).__homeInfoSetShowCloudEmail?.(true);
+      }
+    };
     return () => {
       delete (window as any).__showBlurOverlay;
       delete (window as any).__showCloud;
+      delete (window as any).__setCloudAnimationComplete;
     };
   }, []);
 
