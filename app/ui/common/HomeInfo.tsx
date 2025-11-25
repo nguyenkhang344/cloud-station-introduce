@@ -146,7 +146,7 @@ const HomeInfo = ({ currentStage }: HomeInfoProps) => {
   return (
     <>
       <div
-        className={`fixed top-10 left-1/2 transform -translate-x-1/2 z-10 transition-all duration-300 ease-in-out ${
+        className={`fixed top-2 lg:top-10 left-1/2 transform -translate-x-1/2 z-10 transition-all duration-300 ease-in-out ${
           !isCloudAnimating && !showCloudEmail && content && isVisible
             ? 'opacity-100 translate-y-0 scale-100'
             : 'opacity-0 -translate-y-4 scale-95 pointer-events-none'
