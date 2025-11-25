@@ -32,6 +32,20 @@ const HomeCard = ({ cardData, onContactClick }: { cardData: ContentCard; onConta
             className={`text-black/90 ${index < (cardData.paragraphs?.length || 0) - 1 ? 'mb-3' : 'mb-6'}`}
           >
             {paragraph}
+            {index === (cardData.paragraphs?.length || 0) - 1 && cardData.linkText && cardData.linkUrl && (
+              <>
+                {' '}
+                <a
+                  href={cardData.linkUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary font-semibold hover:underline transition-all"
+                >
+                  {cardData.linkText}
+                </a>
+                .
+              </>
+            )}
           </p>
         ))}
         <div className="flex justify-end">

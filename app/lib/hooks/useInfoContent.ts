@@ -9,6 +9,8 @@ export interface ContentCard {
   description?: string;
   buttonText?: string;
   buttonAction?: string;
+  linkText?: string;
+  linkUrl?: string;
 }
 
 export interface ContentData {

@@ -22,8 +22,11 @@
       "title": "Hi, I'm Khang 👋",
       "paragraphs": [
         "I'm a software engineer working in fintech, building both frontend apps with React and backend systems with Java. I enjoy the mix between design and logic — crafting something that not only works, but also feels right.",
-        "Lately, I've been diving into machine learning, curious about how code can understand and adapt. I'm the kind of person who loves learning how things really work — from trading models to tiny game worlds like this one."
+        "Lately, I've been diving into machine learning, curious about how code can understand and adapt. I'm the kind of person who loves learning how things really work — from trading models to tiny game worlds like this one.",
+        "Curious about the code behind this site? View the source on"
       ],
+      "linkText": "GitHub",
+      "linkUrl": "https://github.com/nguyenkhang344/cloud-station-introduce",
       "buttonText": "My Experiences",
       "buttonAction": "experiences"
     }
