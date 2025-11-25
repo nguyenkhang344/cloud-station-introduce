@@ -23,13 +23,13 @@ const HomeCard = ({ cardData, onContactClick }: { cardData: ContentCard; onConta
   };
 
   return (
-    <div className="w-96 rounded-2xl bg-white shadow-lg">
-      <div className="p-6">
+    <div className="w-96 max-h-96 lg:max-h-none rounded-2xl bg-white shadow-lg flex flex-col">
+      <div className="px-6 pt-6 pb-3 lg:pb-1 overflow-y-auto lg:overflow-y-visible flex-1">
         <h2 className="text-xl font-bold text-black mb-4">{cardData.title}</h2>
         {cardData.paragraphs?.map((paragraph, index) => (
           <p
             key={index}
-            className={`text-black/90 ${index < (cardData.paragraphs?.length || 0) - 1 ? 'mb-3' : 'mb-6'}`}
+            className={`text-black/90 ${index < (cardData.paragraphs?.length || 0) - 1 ? 'mb-3' : 'mb-2 lg:mb-3'}`}
           >
             {paragraph}
             {index === (cardData.paragraphs?.length || 0) - 1 && cardData.linkText && cardData.linkUrl && (
@@ -48,14 +48,14 @@ const HomeCard = ({ cardData, onContactClick }: { cardData: ContentCard; onConta
             )}
           </p>
         ))}
-        <div className="flex justify-end">
-          <button
-            onClick={handleButtonClick}
-            className="btn btn-primary text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 ease-out"
-          >
-            {cardData.buttonText}
-          </button>
-        </div>
+      </div>
+      <div className="px-6 py-2 lg:pt-1 lg:pb-6 flex justify-end">
+        <button
+          onClick={handleButtonClick}
+          className="btn btn-primary text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 ease-out btn-sm lg:btn-md"
+        >
+          {cardData.buttonText}
+        </button>
       </div>
     </div>
   );
